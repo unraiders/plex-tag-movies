@@ -1,0 +1,9 @@
+services:
+  plex-tag-movies:
+    image: unraiders/plex-tag-movies
+    container_name: plex-tag-movies
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Madrid
+    env_file:
+      - .env
