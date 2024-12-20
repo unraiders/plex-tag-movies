@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>plex-tag-movies</Name>
+  <Repository>unraiders/plex-tag-movies</Repository>
+  <Registry>https://hub.docker.com/r/unraiders/plex-tag-movies/</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://hub.docker.com/unraiders/plex-tag-movies</Support>
+  <Icon>https://raw.githubusercontent.com/unraiders/plex-tag-movies/master/plex-tag-movies-icon.png</Icon>
+  <Overview>
+    Actualiza la etiqueta de la película en Plex con información del códec de vídeo.
+  </Overview>
+  <Category>Tools:</Category>
+  <Config Name="PLEX_IP" Target="PLEX_IP" Default="" Mode="" Description="IP Servidor Plex" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="PLEX_PORT" Target="PLEX_PORT" Default="32400" Mode="" Description="Puerto Servidor Plex" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="PLEX_TOKEN" Target="PLEX_TOKEN" Default="" Mode="" Description="Plex Autenticación Token" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="DEBUG" Target="DEBUG" Default="0" Mode="" Description="Habilita el modo Debug en el log. (0 = No / 1 = Si)" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="PRUEBA" Target="PRUEBA" Default="0" Mode="" Description="Habilita el modo Prueba, no realiza ninguna modificación. (0 = No / 1 = Si)" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="BIBLIOTECAS" Target="BIBLIOTECAS" Default="Películas" Mode="" Description="El nombre de las librerías de Plex separadas por una coma. Ejemplo:Películas,Otros vídeos" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="BORRAR_TAGS" Target="BORRAR_TAGS" Default="" Mode="" Description="Borrar etiquetas de las películas, colocar el nombre de las etiquetas separadas por una coma. Ejemplo: H264,HEVC,VC1,AV1" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="HORA" Target="HORA" Default="7:00" Mode="" Description="Hora de ejecutar el script (formato de 24 horas, p. ej., 7:00)" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="TZ" Target="TZ" Default="Europe/Madrid" Mode="" Description="Zona horaria" Type="Variable" Display="always" Required="true" Mask="false"/>
+</Container>
