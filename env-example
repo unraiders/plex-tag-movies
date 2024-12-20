@@ -1,0 +1,8 @@
+PLEX_IP=            # IP Servidor Plex
+PLEX_PORT=          # Puerto Servidor Plex
+PLEX_TOKEN=         # Plex Autenticación Token
+DEBUG=0             # Habilita el modo Debug en el log. (0 = No / 1 = Si)
+PRUEBA=0            # Habilita el modo Prueba, no realiza ninguna modificación. (0 = No / 1 = Si)
+BIBLIOTECAS=        # El nombre de las librerías de Plex separadas por una coma. Ejemplo:Películas,Otros vídeos  
+BORRAR_TAGS=        # Borrar eiquetas de las películas, colocar el nombre de las etiquetas separadas por una coma. Ejemplo: Codec-H264,Codec-HEVC,Codec-VC1,Codec-AV1
+HORA=8:00           # Hora de ejecución del script
