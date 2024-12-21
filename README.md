@@ -47,7 +47,7 @@ services:
 Si quieres saber como se genera un contenedor Docker en Synology [aquí tienes un buen vídeo de como hacerlo](https://youtu.be/iEJGtYO0q70?si=QnlA5Qd17TxfRU0B)
 
 ### Instalación plantilla en Unraid.
-- Nos vamos a una ventana de terminal en nuestro Unraid, pegamos esta línea y <enter>:
+- Nos vamos a una ventana de terminal en nuestro Unraid, pegamos esta línea y enter:
 ```sh
 wget -O /boot/config/plugins/dockerMan/templates-user/my-plex-tag-movies.xml https://raw.githubusercontent.com/unraiders/plex-tag-movies/refs/heads/main/my-plex-tag-movies.xml
 ```
