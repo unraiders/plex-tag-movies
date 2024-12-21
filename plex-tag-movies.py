@@ -1,5 +1,6 @@
 import os
 import urllib.parse
+import time
 from collections import Counter
 from plexapi.server import PlexServer
 from dotenv import load_dotenv
@@ -101,20 +102,56 @@ def process_libraries():
                             if PRUEBA:
                                 debug_log(f"Video codec for {movie.title}: {media.videoCodec.upper()}")
                             else:
-                                codec_tag = f"Codec-{media.videoCodec.upper()}"
+                                # Obtener el codec actual y las etiquetas existentes
+                                current_codec_tag = f"Codec-{media.videoCodec.upper()}"
+                                movie.reload()  # Forzar actualización de datos
                                 existing_tags = [tag.tag for tag in movie.labels]
-                                
-                                # Si ya existe el codec tag correcto, no hacer nada
-                                if codec_tag in existing_tags:
-                                    debug_log(f"Etiqueta {codec_tag} ya existe en {movie.title}, saltando...")
-                                    continue
-                                    
-                                # Solo si no existe el codec tag correcto, eliminar viejos y añadir nuevo
                                 codec_tags = [tag for tag in existing_tags if tag.startswith('Codec-')]
-                                for old_tag in codec_tags:
-                                    movie.removeLabel(old_tag)
-                                movie.addLabel(codec_tag)
-                                debug_log(f"Actualizada etiqueta a {codec_tag} en {movie.title}")
+                                
+                                debug_log(f"\n=====================================")
+                                debug_log(f"Película: {movie.title}")
+                                debug_log(f"Codec detectado: {media.videoCodec.upper()}")
+                                debug_log(f"Etiqueta necesaria: {current_codec_tag}")
+                                debug_log(f"Etiquetas existentes: {codec_tags}")
+                                
+                                # Gestión de etiquetas
+                                try:
+                                    if not codec_tags:
+                                        movie.addLabel(current_codec_tag)
+                                        debug_log(f"ACCIÓN: Añadida primera etiqueta -> {current_codec_tag}")
+                                    elif current_codec_tag not in codec_tags:
+                                        # Eliminar etiquetas antiguas una por una
+                                        for tag in codec_tags:
+                                            debug_log(f"ACCIÓN: Eliminando etiqueta -> {tag}")
+                                            movie.removeLabel(tag)
+                                            time.sleep(1)  # Pequeña pausa
+                                            movie.reload()  # Recargar el estado
+                                            
+                                            # Verificar que la etiqueta se eliminó
+                                            current_tags = [t.tag for t in movie.labels if t.tag.startswith('Codec-')]
+                                            if tag in current_tags:
+                                                debug_log(f"ERROR: No se pudo eliminar la etiqueta {tag}")
+                                                continue
+                                                
+                                        # Añadir nueva etiqueta solo si se eliminaron las anteriores
+                                        current_tags = [t.tag for t in movie.labels if t.tag.startswith('Codec-')]
+                                        if not current_tags:
+                                            movie.addLabel(current_codec_tag)
+                                            debug_log(f"ACCIÓN: Añadida nueva etiqueta -> {current_codec_tag}")
+                                        else:
+                                            debug_log(f"ERROR: No se pudieron eliminar todas las etiquetas antiguas: {current_tags}")
+                                    else:
+                                        debug_log(f"ACCIÓN: Ninguna - Etiqueta correcta")
+                                    
+                                    # Verificación final
+                                    time.sleep(1)  # Pequeña pausa
+                                    movie.reload()
+                                    final_tags = [tag.tag for tag in movie.labels if tag.tag.startswith('Codec-')]
+                                    debug_log(f"Estado final: {final_tags}")
+                                    debug_log(f"=====================================\n")
+                                    
+                                except Exception as e:
+                                    debug_log(f"ERROR en {movie.title}: {str(e)}")
                 
                 except Exception as e:
                     debug_log(f"Error procesando película: {str(e)}")
