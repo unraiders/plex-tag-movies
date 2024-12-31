@@ -1,24 +1,26 @@
 #!/bin/sh
 
-echo "[$(date)] Starting entrypoint.sh"
-echo "[$(date)] Timezone set to: $TZ"
-echo "[$(date)] Scheduled time set to: $HORA"
-echo "[$(date)] Debug: $DEBUG"
+# Validar que HORA esté definida
+if [ -z "$HORA" ]; then
+    echo "La variable HORA no está definida en el archivo .env"
+    exit 1
+fi
 
-last_run=""
+# Confirmación de configuración de cron
+echo "$(date +'%d-%m-%Y %H:%M:%S') $VERSION - Starting entrypoint.sh"
+echo "$(date +'%d-%m-%Y %H:%M:%S') Timezone set to: $TZ"
+echo "$(date +'%d-%m-%Y %H:%M:%S') Cron scheduled time set to: $HORA"
+echo "$(date +'%d-%m-%Y %H:%M:%S') Debug: $DEBUG"
 
-while true; do
-    current_time=$(date +%-H:%M)
-    
-    if [ "$DEBUG" = "1" ]; then
-        echo "[$(date)] Checking time - Current: $current_time, Scheduled: $HORA"
-    fi
-    
-    if [ "$current_time" = "$HORA" ] && [ "$current_time" != "$last_run" ]; then
-        echo "[$(date)] Time match! Running plex-tag-movies.py at scheduled time: $HORA"
-        python /app/plex-tag-movies.py
-        last_run=$current_time
-    fi
-    
-    sleep 30
-done
+# Crear una línea para el crontab
+CRON_JOB="$HORA python3 /app/plex-tag-movies.py >> /proc/1/fd/1 2>> /proc/1/fd/2"
+
+# Agregar el trabajo al crontab
+echo "$CRON_JOB" > /etc/crontabs/root
+
+# Asegurarse de que el archivo de logs existe
+touch /var/log/cron.log
+
+# Iniciar cron en segundo plano
+echo "Starting cron..."
+crond -f -l 2 || { echo "Error starting cron"; exit 1; }
