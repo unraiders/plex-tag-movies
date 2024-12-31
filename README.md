@@ -53,7 +53,7 @@ Si quieres saber como se genera un contenedor Docker en Synology [aquí tienes u
 ```sh
 wget -O /boot/config/plugins/dockerMan/templates-user/my-plex-tag-movies.xml https://raw.githubusercontent.com/unraiders/plex-tag-movies/refs/heads/main/my-plex-tag-movies.xml
 ```
-- Nos vamos a DOCKER y abajo a la izquierda tenemos el botón "AGREGAR CONTENEDOR" hacemos click y en seleccionar plantilla seleccionamos plex-tag-movies y rellenamos las variables de entrono necesarias, tienes una explicación en cada variable en la propia plantilla.
+- Nos vamos a DOCKER y abajo a la izquierda tenemos el botón "AGREGAR CONTENEDOR" hacemos click y en seleccionar plantilla seleccionamos plex-tag-movies y rellenamos las variables de entorno necesarias, tienes una explicación en cada variable en la propia plantilla.
 
 ---
 ### Log.
