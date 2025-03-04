@@ -27,8 +27,8 @@ IMPORTANTE:
 |PRUEBA |✅| Habilita el modo Prueba, no realiza ninguna modificación. (0 = No / 1 = Si) |
 |BIBLIOTECAS |✅| El nombre de las librerías de Plex separadas por una coma. Ejemplo: Películas,Otros vídeos |
 |BORRAR_TAGS |❌| Borrar etiquetas de las películas, colocar el nombre de las etiquetas separadas por una coma. Ejemplo: Codec-H264,Codec-HEVC,Codec-VC1,Codec-AV1 |
-|TZ |✅| Zona horaria|
-|HORA |✅| Hora de ejecución del script en formato crontab|
+|TZ |✅| Timezone (Por ejemplo: Europe/Madrid) |
+|HORA |✅| Hora de ejecutar el script (formato crontab. ej., 0 7 * * * = 7:00 AM, visita https://crontab.guru/ para mas info.)|
 
 
 

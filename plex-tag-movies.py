@@ -1,5 +1,4 @@
 import os
-import urllib.parse
 import time
 from collections import Counter
 from plexapi.server import PlexServer
@@ -64,7 +63,7 @@ def process_libraries():
         logger.debug(f"Conectado a Plex server en {baseurl}")
         
         if not bibliotecas:
-            logger.error(f"Error: No hay bibliotecas configuradas en BIBLIOTECAS")
+            logger.error("Error: No hay bibliotecas configuradas en BIBLIOTECAS")
             return
             
         # Add validation of configured libraries
@@ -111,7 +110,7 @@ def process_libraries():
                                 existing_tags = [tag.tag for tag in movie.labels]
                                 codec_tags = [tag for tag in existing_tags if tag.startswith('Codec-')]
                                 
-                                logger.debug(f"=====================================")
+                                logger.debug("=====================================")
                                 logger.debug(f"Película: {movie.title}")
                                 logger.debug(f"Codec detectado: {media.videoCodec.upper()}")
                                 logger.debug(f"Etiqueta necesaria: {current_codec_tag}")
@@ -144,14 +143,14 @@ def process_libraries():
                                         else:
                                             logger.error(f"ERROR: No se pudieron eliminar todas las etiquetas antiguas: {current_tags}")
                                     else:
-                                        logger.debug(f"ACCIÓN: Ninguna - Etiqueta correcta")
+                                        logger.debug("ACCIÓN: Ninguna - Etiqueta correcta")
                                     
                                     # Verificación final
                                     time.sleep(1)  # Pequeña pausa
                                     movie.reload()
                                     final_tags = [tag.tag for tag in movie.labels if tag.tag.startswith('Codec-')]
                                     logger.debug(f"Estado final: {final_tags}")
-                                    logger.debug(f"=====================================\n")
+                                    logger.debug("=====================================\n")
                                     
                                 except Exception as e:
                                     logger.error(f"ERROR en {movie.title}: {str(e)}")

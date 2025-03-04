@@ -7,9 +7,9 @@ if [ -z "$HORA" ]; then
 fi
 
 # Confirmación de configuración de cron
-echo "$(date +'%d-%m-%Y %H:%M:%S') $VERSION - Starting entrypoint.sh"
-echo "$(date +'%d-%m-%Y %H:%M:%S') Timezone set to: $TZ"
-echo "$(date +'%d-%m-%Y %H:%M:%S') Cron scheduled time set to: $HORA"
+echo "$(date +'%d-%m-%Y %H:%M:%S') $VERSION - Arrancando entrypoint.sh"
+echo "$(date +'%d-%m-%Y %H:%M:%S') Zona horaria: $TZ"
+echo "$(date +'%d-%m-%Y %H:%M:%S') Programación cron: $HORA"
 echo "$(date +'%d-%m-%Y %H:%M:%S') Debug: $DEBUG"
 
 # Crear una línea para el crontab

@@ -3,7 +3,7 @@ FROM python:3.11-alpine
 LABEL maintainer="unraiders"
 LABEL description="Actualiza la etiqueta de la película en Plex con información del códec de vídeo"
 
-ARG VERSION=2.0.0
+ARG VERSION=2.1.0
 ENV VERSION=${VERSION}
 
 # Instalar cron y otros paquetes
